@@ -6,12 +6,11 @@ import { RouterLink, useRoute, useRouter } from "vue-router";
 import Backbutton from "@/components/Backbutton.vue";
 import { useToast } from "vue-toastification";
 
-
 const route = useRoute();
 const jobId = route.params.id;
 const job = ref({});
 const loading = ref(false);
-const toast = useToast()
+const toast = useToast();
 const router = useRouter();
 
 onMounted(async () => {
@@ -27,31 +26,23 @@ onMounted(async () => {
   }
 });
 
-const handleDelete = async()=>{
-
-  try{
-
-    const response = await axios.delete(`/api/jobs/${jobId}`)
-    console.log(response)
-    if(response.status == 200){
-      toast.success("Job deleted successfully")
-      setTimeout(()=>{
-        
-        router.push('/jobs')
-      },1000)
+const handleDelete = async () => {
+  try {
+    // const confirm = window.confirm("Are you sure you want to delete this job?")
+    // if(confirm){}
+    const response = await axios.delete(`/api/jobs/${jobId}`);
+    console.log(response);
+    if (response.status == 200) {
+      toast.success("Job deleted successfully");
+      setTimeout(() => {
+        router.push("/jobs");
+      }, 1000);
     }
-    
-    
+  } catch (err) {
+    // console.log(err);
+    toast.error(err.message || "An error occurred");
   }
-  catch(err){
-    console.log(err);
-    toast.error(err.message || "An error occurred")
-    
-  }
-  
-}
-
-
+};
 </script>
 
 <template>
