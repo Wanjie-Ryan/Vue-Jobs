@@ -43,7 +43,7 @@ const handleSubmit = async () => {
 
     if ((response.status = 200)) {
       setTimeout(() => {
-        toast.success("Job was successfully Created");
+        toast.success("Job was successfully Updated");
         router.push(`/jobs/${response.data.id}`);
       }, 1000);
     }
@@ -53,32 +53,26 @@ const handleSubmit = async () => {
   }
 };
 
-const jobs = ref({})
+const jobs = ref({});
 
-onMounted(async()=>{
-
-    try{
-        const response = await axios.get(`/api/jobs/${jobId}`)
-        // console.log(response)
-        jobs.value = response.data
-        type.value = jobs.value.type
-        listName.value = jobs.value.title
-        description.value = jobs.value.description
-        salary.value = jobs.value.salary
-        location.value = jobs.value.location
-        companyName.value = jobs.value.company.name
-        companyDesc.value = jobs.value.company.description
-        email.value = jobs.value.company.contactEmail
-        phone.value = jobs.value.company.contactPhone
-        
-    }
-    catch(err){
-        console.log(err)
-    }
-    
-})
-
-
+onMounted(async () => {
+  try {
+    const response = await axios.get(`/api/jobs/${jobId}`);
+    // console.log(response)
+    jobs.value = response.data;
+    type.value = jobs.value.type;
+    listName.value = jobs.value.title;
+    description.value = jobs.value.description;
+    salary.value = jobs.value.salary;
+    location.value = jobs.value.location;
+    companyName.value = jobs.value.company.name;
+    companyDesc.value = jobs.value.company.description;
+    email.value = jobs.value.company.contactEmail;
+    phone.value = jobs.value.company.contactPhone;
+  } catch (err) {
+    console.log(err);
+  }
+});
 </script>
 
 <template>
